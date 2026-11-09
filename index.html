@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Echte Huur — binnenkort</title>
+<meta name="description" content="Echte Huur zoekt huurwoningen voor je en meldt je direct als er iets nieuws is. Binnenkort live.">
+<meta name="theme-color" content="#0000fe">
+<style>
+@font-face{font-family:"Sora";font-weight:400;font-display:swap;src:url(fonts/sora-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Sora";font-weight:600;font-display:swap;src:url(fonts/sora-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Sora";font-weight:700;font-display:swap;src:url(fonts/sora-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Sora";font-weight:800;font-display:swap;src:url(fonts/sora-latin-800-normal.woff2) format("woff2")}
+:root{
+  --blue:#0000fe; --blue-2:#0000c8; --navy:#04044a; --ink:#0b0b2e; --ink2:#55557a; --line:#e6e6f2; --bg:#f6f6fb;
+  --ok:#14a85a; --ok-bg:#e7f7ee; --warm:#b45c12; --warm-bg:#fdf1e4; --lila-bg:#efedfb;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{font-family:"Sora",ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+img,video{display:block;max-width:100%}
+:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:8px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+@media (max-width:640px){.wrap{padding:0 20px}}
+
+/* ---------- hero: the brand, full-bleed blue ---------- */
+.hero{position:relative;background:var(--blue);color:#fff;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(60% 50% at 85% 10%,rgba(255,255,255,.14),transparent 70%),
+  linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px) 0 0/56px 56px,
+  linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px) 0 0/56px 56px;
+  -webkit-mask-image:linear-gradient(180deg,#000 40%,transparent);mask-image:linear-gradient(180deg,#000 40%,transparent)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+.mark{font-weight:700;font-size:20px;line-height:.9;letter-spacing:-.04em}
+.mark i{font-style:normal;display:block}
+.nav-r{display:flex;align-items:center;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);font-size:13px;font-weight:600}
+.pill i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.7);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 24px;border-radius:8px;font-weight:600;font-size:15px;white-space:nowrap;transition:transform .15s,background-color .2s}
+.btn:active{transform:scale(.98)}
+.btn-white{background:#fff;color:var(--blue)}
+.btn-white:hover{background:#e9e9ff}
+.btn-line{border:1px solid rgba(255,255,255,.5);color:#fff}
+.btn-line:hover{background:rgba(255,255,255,.1)}
+.btn-sm{height:40px;padding:0 16px;font-size:14px}
+
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding:56px 0 120px}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;padding:30px 0 90px}}
+.word{font-weight:800;font-size:clamp(84px,13vw,190px);line-height:.82;letter-spacing:-.06em}
+.word i{font-style:normal;display:block}
+.word .dot{display:inline-block;width:.16em;height:.16em;background:#fff;margin-left:.04em}
+.hero h1{font-weight:600;font-size:clamp(24px,2.4vw,32px);line-height:1.2;letter-spacing:-.03em;margin-top:36px;max-width:22ch}
+.hero .lead{margin-top:14px;font-size:17px;color:rgba(255,255,255,.82);max-width:44ch}
+.join{display:flex;gap:8px;margin-top:30px;max-width:480px;padding:6px;border-radius:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+.join input{flex:1;min-width:0;background:none;border:0;outline:none;padding:0 14px;font-size:15px;color:#fff}
+.join input::placeholder{color:rgba(255,255,255,.65)}
+.join-note{margin-top:12px;font-size:13px;color:rgba(255,255,255,.7);min-height:20px}
+.join-note a{text-decoration:underline}
+@media (max-width:520px){.join{flex-direction:column;background:none;border:0;padding:0}.join input{flex:none;height:52px;border-radius:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3)}}
+
+/* phone with live alerts */
+.phone{position:relative;justify-self:center;width:min(320px,80vw);aspect-ratio:9/18.5;border-radius:44px;background:#000;padding:10px;box-shadow:0 50px 100px rgba(0,0,40,.45),0 0 0 1px rgba(255,255,255,.2);transform:rotate(3deg)}
+.screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#000}
+.screen video{width:100%;height:100%;object-fit:cover;opacity:.85}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:20px;background:#000;z-index:3}
+.alerts{position:absolute;left:10px;right:10px;top:48px;display:grid;gap:8px;z-index:2}
+.alert{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);box-shadow:0 8px 20px rgba(0,0,0,.25);animation:drop .6s cubic-bezier(.2,.8,.2,1) both}
+.alert img{width:36px;height:36px;border-radius:9px}
+.alert b{display:block;font-size:12.5px;font-weight:700;letter-spacing:-.01em}
+.alert span{display:block;font-size:11.5px;color:var(--ink2);line-height:1.3}
+.alert time{font-size:10.5px;color:var(--ink2);align-self:start}
+@keyframes drop{from{opacity:0;transform:translateY(-14px) scale(.96)}}
+@media (max-width:900px){.phone{transform:none;margin-top:10px}}
+@media (max-width:420px){.pill{display:none}}
+
+/* ---------- sneak peek ---------- */
+.peek{background:var(--bg);padding:110px 0 120px;margin-top:-1px}
+.peek-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px}
+.peek h2{font-weight:700;font-size:clamp(32px,3.6vw,48px);letter-spacing:-.045em;line-height:1.05;color:var(--navy)}
+.peek-head p{color:var(--ink2);max-width:38ch}
+.app{position:relative;margin-top:44px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 80px rgba(4,4,74,.08);padding:26px;overflow:hidden}
+.app-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.who{display:flex;align-items:center;gap:12px;font-size:15px}
+.who img{width:40px;height:40px;border-radius:10px}
+.who b{font-weight:700}
+.who span{color:var(--ink2)}
+.live{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 13px;border-radius:999px;background:var(--navy);color:#fff;font-size:13px;font-weight:600}
+.live i{width:7px;height:7px;border-radius:50%;background:#3dff8b;animation:ping 1.8s infinite}
+.app-body{display:grid;grid-template-columns:280px 1fr;gap:24px;margin-top:22px}
+@media (max-width:900px){.app-body{grid-template-columns:1fr}}
+.reelcard{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:9/14}
+.reelcard video{width:100%;height:100%;object-fit:cover}
+.reelcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,30,.85))}
+.reelcard p{position:absolute;left:16px;right:16px;bottom:16px;z-index:1;color:#fff;font-size:14px;font-weight:600;line-height:1.35}
+.reelcard p small{display:block;font-weight:400;opacity:.75;margin-bottom:4px}
+@media (max-width:900px){.reelcard{aspect-ratio:16/10}}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink);transition:all .15s}
+.tabs button[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tabs button:hover:not([aria-selected="true"]){border-color:#c9c9e4}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+@media (max-width:700px){.tiles{grid-template-columns:1fr 1fr}}
+.tile{border-radius:16px;padding:16px 18px}
+.tile span{font-size:13px;color:var(--ink2)}
+.tile b{display:block;font-size:30px;font-weight:700;letter-spacing:-.04em;margin-top:4px}
+.t1{background:var(--ok-bg)}.t1 b{color:var(--ok)}
+.t2{background:#e8e8ff}.t2 b{color:var(--blue)}
+.t3{background:var(--warm-bg)}.t3 b{color:var(--warm)}
+.t4{background:var(--lila-bg)}.t4 b{color:#5b3fd1}
+.list{position:relative;margin-top:16px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.row{display:grid;grid-template-columns:64px 1fr auto auto;gap:16px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.thumb{width:64px;height:48px;border-radius:10px;background:linear-gradient(135deg,#dfe0ff,#f3f3ff);position:relative;overflow:hidden}
+.thumb::after{content:"";position:absolute;left:14px;bottom:0;width:36px;height:30px;background:var(--blue);opacity:.18;clip-path:polygon(50% 0,100% 40%,100% 100%,0 100%,0 40%)}
+.row b{display:block;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.row span{font-size:13px;color:var(--ink2)}
+.match{font-size:13px;font-weight:700;color:var(--ok);background:var(--ok-bg);padding:5px 10px;border-radius:999px;white-space:nowrap}
+.price{font-weight:700;font-size:16px;white-space:nowrap}
+.price small{font-weight:400;font-size:12px;color:var(--ink2)}
+@media (max-width:560px){.row{grid-template-columns:52px 1fr auto}.row .match{display:none}.thumb{width:52px;height:40px}}
+.listwrap{position:relative}
+.fade{position:absolute;left:0;right:0;bottom:0;height:78%;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.92) 55%,#fff);display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px}
+.lock{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 22px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 30px rgba(4,4,74,.12);font-weight:600;font-size:15px;color:var(--navy)}
+.lock svg{width:18px;height:18px}
+.blur{filter:blur(2.5px);opacity:.6}
+.peek-foot{text-align:center;margin-top:30px}
+.peek-foot p{color:var(--ink2);font-size:15px}
+.peek-foot .btn{margin-top:18px;background:var(--navy);color:#fff}
+.peek-foot .btn:hover{background:var(--blue)}
+.sample{font-size:12px;color:#9a9ab8;margin-top:14px}
+
+/* ---------- features ---------- */
+.feat{padding:110px 0}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+@media (max-width:900px){.feat-grid{grid-template-columns:1fr}}
+.f{border-radius:20px;border:1px solid var(--line);padding:28px}
+.f .ic{width:44px;height:44px;border-radius:12px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center}
+.f .ic svg{width:22px;height:22px}
+.f h3{font-size:20px;font-weight:700;letter-spacing:-.03em;margin-top:22px;color:var(--navy)}
+.f p{color:var(--ink2);margin-top:8px;font-size:15px}
+.feat h2{font-weight:700;font-size:clamp(32px,3.6vw,48px);letter-spacing:-.045em;line-height:1.05;color:var(--navy);max-width:16ch}
+
+/* ---------- final ---------- */
+.final{background:var(--blue);color:#fff;padding:110px 0 50px;text-align:center;overflow:hidden}
+.final h2{font-weight:800;font-size:clamp(44px,7vw,96px);letter-spacing:-.06em;line-height:.9}
+.final p{margin-top:18px;color:rgba(255,255,255,.82)}
+.final .acts{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:30px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;margin-top:100px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;color:rgba(255,255,255,.7)}
+.foot a:hover{color:#fff}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="Echte Huur">
+      <a class="mark" href="#top" aria-label="Echte Huur"><i>ECHTE</i><i>HUUR.</i></a>
+      <div class="nav-r">
+        <span class="pill"><i></i>Binnenkort live</span>
+        <a class="btn btn-white btn-sm" href="#wachtlijst">Wachtlijst</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid" id="top">
+      <div>
+        <div class="word" aria-hidden="true"><i>Echte</i><i>Huur<span class="dot"></span></i></div>
+        <h1>Nooit meer als laatste reageren op een huurwoning.</h1>
+        <p class="lead">Echte Huur zoekt alle huursites voor je af en stuurt je een melding zodra er iets nieuws is dat bij je past.</p>
+        <form class="join" id="wachtlijst">
+          <label for="mail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">E-mailadres</label>
+          <input id="mail" type="email" placeholder="Je e-mailadres" autocomplete="email" required>
+          <button class="btn btn-white" type="submit">Zet me op de wachtlijst</button>
+        </form>
+        <p class="join-note" id="joinNote" aria-live="polite">Als eerste toegang bij de lancering. Gratis.</p>
+      </div>
+
+      <div class="phone" aria-hidden="true">
+        <div class="screen">
+          <div class="notch"></div>
+          <video src="media/eh1-loop.mp4" poster="media/eh1.jpg" muted loop playsinline autoplay></video>
+          <div class="alerts" id="alerts"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="peek" aria-labelledby="peekTitle">
+  <div class="wrap">
+    <div class="peek-head">
+      <h2 id="peekTitle">Een sneak peek.</h2>
+      <p>Jouw zoekopdracht, je matches en hoe snel je moet zijn. Alles op één scherm.</p>
+    </div>
+
+    <div class="app">
+      <div class="app-top">
+        <div class="who"><img src="media/echtehuur-logo.jpg" alt=""><div><b>Jouw zoekopdracht</b><br><span id="query">Amsterdam, tot € 1.800, 2+ kamers</span></div></div>
+        <span class="live"><i></i>Live scannen</span>
+      </div>
+      <div class="app-body">
+        <div class="reelcard">
+          <video src="media/eh2-loop.mp4" poster="media/eh2.jpg" muted loop playsinline autoplay></video>
+          <p><small>@echtehuur</small>Wat betaal jij écht? De verhalen achter de huurprijs.</p>
+        </div>
+        <div>
+          <div class="tabs" role="tablist" id="tabs">
+            <button role="tab" aria-selected="true" data-t="0">Matches</button>
+            <button role="tab" aria-selected="false" data-t="1">Meldingen</button>
+            <button role="tab" aria-selected="false" data-t="2">Prijscheck</button>
+            <button role="tab" aria-selected="false" data-t="3">Reageren</button>
+          </div>
+          <div class="tiles" id="tiles"></div>
+          <div class="listwrap"><div class="list" id="list"></div>
+            <div class="fade"><a class="lock" href="#wachtlijst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>Ontgrendel bij de lancering</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="peek-foot">
+      <p>Je eigen matches, meldingen en prijscheck. Straks in je zak.</p>
+      <a class="btn" href="#wachtlijst">Zet me op de wachtlijst</a>
+      <p class="sample">Voorbeeldweergave. Woningen en cijfers zijn ter illustratie.</p>
+    </div>
+  </div>
+</section>
+
+<section class="feat" aria-labelledby="featTitle">
+  <div class="wrap">
+    <h2 id="featTitle">Gebouwd voor wie al te vaak te laat was.</h2>
+    <div class="feat-grid">
+      <div class="f">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div>
+        <h3>Alle sites, één plek</h3>
+        <p>Wij zoeken de huursites af. Jij kijkt alleen naar wat past.</p>
+      </div>
+      <div class="f">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>Binnen minuten een melding</h3>
+        <p>Nieuwe woning online? Dan weet jij het meteen, niet morgen.</p>
+      </div>
+      <div class="f">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg></div>
+        <h3>Echte prijzen</h3>
+        <p>Zie wat anderen in de buurt écht betalen, voordat je reageert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="final">
+  <div class="wrap">
+    <h2>ECHTE HUUR.</h2>
+    <p>Binnenkort live. Volg ons alvast voor de lancering.</p>
+    <div class="acts">
+      <a class="btn btn-white" href="#wachtlijst">Zet me op de wachtlijst</a>
+      <a class="btn btn-line" href="https://www.instagram.com/echtehuur/" target="_blank" rel="noopener">Volg @echtehuur</a>
+    </div>
+    <div class="foot">
+      <span>© 2026 Echte Huur, een merk van More Traffiq</span>
+      <a href="mailto:info@moretraffiq.com">info@moretraffiq.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* phone: alerts drop in one by one (illustrative) */
+  const pool = [
+    ["Nieuwe woning", "Amsterdam-West, € 1.450, 2 kamers", "nu"],
+    ["94% match", "Utrecht Oost, € 1.290, 58 m²", "1 min"],
+    ["Prijs gedaald", "Rotterdam Kralingen, nu € 1.150", "3 min"],
+    ["Nieuwe woning", "Den Haag Centrum, € 1.375, 3 kamers", "4 min"],
+    ["Reageer snel", "Haarlem, 12 anderen kijken mee", "6 min"]
+  ];
+  const box = $("#alerts"); let k = 0;
+  function push(){
+    const [t, d, tm] = pool[k++ % pool.length];
+    const el = document.createElement("div"); el.className = "alert";
+    el.innerHTML = `<img src="media/echtehuur-logo.jpg" alt=""><div><b>${t}</b><span>${d}</span></div><time>${tm}</time>`;
+    box.prepend(el); while (box.children.length > 3) box.lastChild.remove();
+  }
+  push(); push();
+  if (!reduce) setInterval(push, 2600);
+
+  /* sneak peek tabs (illustrative data) */
+  const views = [
+    { tiles: [["Nieuw vandaag","37"],["Jouw matches","12"],["Gem. reactietijd","9 min"],["Laatste scan","nu"]],
+      rows: [["Appartement aan de gracht","Amsterdam Centrum, 64 m², 2 kamers","96% match","€ 1.725"],["Licht hoekhuis","Amsterdam Noord, 82 m², 3 kamers","91% match","€ 1.650"],["Studio met balkon","Amsterdam West, 41 m²","88% match","€ 1.240"],["Bovenwoning","Amsterdam Oost, 70 m², 3 kamers","84% match","€ 1.790"]] },
+    { tiles: [["Meldingen vandaag","8"],["Snelste reactie","2 min"],["Gemist","0"],["Kanalen","Push, mail"]],
+      rows: [["Nieuwe woning","Amsterdam West, € 1.450","nu","Bekijk"],["Prijs gedaald","Amsterdam Oost, € 1.690","5 min","Bekijk"],["Bijna weg","Amsterdam Centrum, 14 kijkers","12 min","Bekijk"],["Nieuwe woning","Amsterdam Noord, € 1.380","20 min","Bekijk"]] },
+    { tiles: [["Gem. in jouw buurt","€ 1.610"],["Deze woning","€ 1.725"],["Verschil","+7%"],["Op basis van","verhalen"]],
+      rows: [["Amsterdam Centrum","2 kamers, gemiddeld","± € 1.680","p/m"],["Amsterdam West","2 kamers, gemiddeld","± € 1.420","p/m"],["Amsterdam Oost","2 kamers, gemiddeld","± € 1.510","p/m"],["Amsterdam Noord","2 kamers, gemiddeld","± € 1.330","p/m"]] },
+    { tiles: [["Verstuurd","5"],["Bezichtigingen","2"],["In afwachting","3"],["Profiel","compleet"]],
+      rows: [["Appartement aan de gracht","Reactie verstuurd, 2 min na plaatsing","Bezichtiging","di 14:00"],["Licht hoekhuis","Reactie verstuurd","Wachten","—"],["Studio met balkon","Reactie verstuurd","Bezichtiging","do 10:30"],["Bovenwoning","Concept klaar","Klaar","Verstuur"]] }
+  ];
+  const tileCls = ["t1","t2","t3","t4"];
+  function render(i){
+    const v = views[i];
+    $("#tiles").innerHTML = v.tiles.map((t, n) => `<div class="tile ${tileCls[n]}"><span>${t[0]}</span><b>${t[1]}</b></div>`).join("");
+    $("#list").innerHTML = v.rows.map((r, n) => `<div class="row${n > 1 ? " blur" : ""}"><div class="thumb"></div><div><b>${r[0]}</b><span>${r[1]}</span></div><span class="match">${r[2]}</span><span class="price">${r[3]}${i === 0 ? " <small>p/m</small>" : ""}</span></div>`).join("");
+    document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-selected", String(+b.dataset.t === i)));
+  }
+  document.querySelectorAll("#tabs button").forEach(b => b.addEventListener("click", () => render(+b.dataset.t)));
+  render(0);
+
+  /* waitlist: hands off to mail, nothing is stored here */
+  $("#wachtlijst").addEventListener("submit", e => {
+    e.preventDefault();
+    const m = $("#mail").value.trim(), note = $("#joinNote");
+    if (!/^\S+@\S+\.\S+$/.test(m)) { note.textContent = "Vul een geldig e-mailadres in."; $("#mail").focus(); return; }
+    location.href = "mailto:info@moretraffiq.com?subject=" + encodeURIComponent("Wachtlijst Echte Huur") + "&body=" + encodeURIComponent("Zet mij op de wachtlijst: " + m);
+    note.innerHTML = 'Je mailprogramma opent met je aanmelding. Opent er niets? Mail <a href="mailto:info@moretraffiq.com">info@moretraffiq.com</a>.';
+  });
+
+  /* make videos play on iOS */
+  document.querySelectorAll("video").forEach(v => { v.muted = true; v.setAttribute("muted", ""); const p = v.play(); if (p && p.catch) p.catch(()=>{}); });
+  addEventListener("touchstart", () => document.querySelectorAll("video").forEach(v => v.play().catch(()=>{})), { once: true, passive: true });
+})();
+</script>
+</body>
+</html>
